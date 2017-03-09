@@ -24,7 +24,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .header
-    background: yellowgreen
+    background: rebeccapurple
     .content
     	display: flex
     	padding: 15px 0

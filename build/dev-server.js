@@ -24,11 +24,25 @@ var app = express()
 // 导入mock数据
 var appDate = require('../src/common/data.json');
 var shopInfo = appDate.shopInfo;
+var goods = appDate.dishCategory;
+var ratings = appDate.ratings;
 var apiRoutes = express.Router();
 apiRoutes.get('/shopInfo', function (req, res) {
   res.json({
     errno: 0,
     data: shopInfo
+  })
+})
+apiRoutes.get('/dishCategory', function (req, res) {
+  res.json({
+    errno: 0,
+    data: goods
+  })
+})
+apiRoutes.get('/ratings', function (req, res) {
+  res.json({
+    errno: 0,
+    data: ratings
   })
 })
 app.use("/api", apiRoutes);
