@@ -2,12 +2,12 @@
   <div class="dishCategory">
   	<div class="dLeft" ref="dLeft">
   		<ul class="list">
-  			<li v-for="item in goods" class="list-item">{{item.category}}</li>
+  			<li v-for="(item, index) in goods" class="list-item" :class="{'current':currentIndex===index}" @click="selectList(index, $event)">{{item.category}}</li>
   		</ul>
   	</div>
   	<div class="dRight" ref="dRight">
   		<ul>
-  			<li v-for="item in goods" class="list-item">
+  			<li v-for="item in goods" class="list-item list-item-hook">
   				<h1>{{item.category}}</h1>
   				<ul>
   					<li v-for="item in item.dishList" class="good-list">
@@ -26,14 +26,16 @@
   	</div>
   </div>
 </template>
-<script type="text/ecmascript-6">
+<script type="text-ecmascript-6">
 	import BScroll from 'better-scroll'
 	const ERR_NO = 0
 
 	export default {
 		data () {
 			return {
-				goods: []
+				goods: [],
+				listHeight: [],
+				scrollY: 0
 			}
 		},
 		created () {
@@ -42,16 +44,58 @@
 				console.log(res)
 				if (res.errno === ERR_NO) {
 					this.goods = res.data
+					// vue异步加载dom，数据取到高度没有渲染，需要这个属性去渲染
 					this.$nextTick(() => {
 						this._initScroll()
+						this._calHeight()
 					})
 				}
 			})
 		},
+		computed: {
+			currentIndex () {
+				for (var i = 0; i < this.listHeight.length; i++) {
+					let height1 = this.listHeight[i]
+					let height2 = this.listHeight[i+1]
+					if (!height2 || this.scrollY >= height1 && this.scrollY < height2) {
+						return i
+					}
+				}
+				return 0
+			}
+		},
 		methods: {
+			selectList (index, event) {
+				if (!event._constructed) {
+					return
+				}
+				let itemList = this.$refs.dRight.getElementsByClassName('list-item-hook')
+				console.log(itemList)
+				let el = itemList[index];
+				console.log(el)
+				this.foodScroll.scrollToElement(el, 1000)
+				console.log(index)
+			},
 			_initScroll () {
-				this.menuScroll = new BScroll(this.$refs.dLeft, {})
-				this.foodScroll = new BScroll(this.$refs.dRight, {})
+				this.menuScroll = new BScroll(this.$refs.dLeft, {
+					click: true
+				})
+				this.foodScroll = new BScroll(this.$refs.dRight, {
+					probeType: 3
+				})
+				this.foodScroll.on('scroll', (pos) => {
+					this.scrollY = Math.abs(Math.round(pos.y))
+				})
+			},
+			_calHeight () {
+				let listItem = this.$refs.dRight.getElementsByClassName('list-item-hook')
+				let height = 0
+				this.listHeight.push(height)
+				for (var i = 0; i < listItem.length; i++) {
+					let item = listItem[i]
+					height += item.clientHeight
+					this.listHeight.push(height)
+				}
 			}
 		}
 	}
@@ -70,13 +114,14 @@
 			flex: 0 0 100px
 			background: #eee
 			.list-item
-				display: block
-				list-style: none
-				text-align: center
 				line-height: 50px
+				text-align: center
+				margin-bottom: 5px
 				height: 50px
 				font-size: 12px
 				background: red
+				&.current
+					background: white
 		.dRight
 			flex: 1
 			.list-item
