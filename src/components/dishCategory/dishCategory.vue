@@ -1,33 +1,38 @@
 <template>
-  <div class="dishCategory">
-  	<div class="dLeft" ref="dLeft">
-  		<ul class="list">
-  			<li v-for="(item, index) in goods" class="list-item" :class="{'current':currentIndex===index}" @click="selectList(index, $event)">{{item.category}}</li>
-  		</ul>
-  	</div>
-  	<div class="dRight" ref="dRight">
-  		<ul>
-  			<li v-for="item in goods" class="list-item list-item-hook">
-  				<h1>{{item.category}}</h1>
-  				<ul>
-  					<li v-for="item in item.dishList" class="good-list">
-  						<div class="picbox">
-  							<img :src="item.littleImg" alt="">
-  						</div>
-  						<div class="desc">
-  							<p class="name">{{item.name}}</p>
-  							<p class="sellnum">月售{{item.sold}}</p>
-  							<p class="price">￥{{item.discountPrice}}</p>
-  						</div>
-  					</li>
-  				</ul>
-  			</li>
-  		</ul>
-  	</div>
+  <div>
+	  <div class="dishCategory">
+	  	<div class="dLeft" ref="dLeft">
+	  		<ul class="list">
+	  			<li v-for="(item, index) in goods" class="list-item" :class="{'current':currentIndex===index}" @click="selectList(index, $event)">{{item.category}}</li>
+	  		</ul>
+	  	</div>
+	  	<div class="dRight" ref="dRight">
+	  		<ul>
+	  			<li v-for="item in goods" class="list-item list-item-hook">
+	  				<h1>{{item.category}}</h1>
+	  				<ul>
+	  					<li @click="selectFood(food, $event)" v-for="item in item.dishList" class="good-list">
+	  						<div class="picbox">
+	  							<img :src="item.littleImg" alt="">
+	  						</div>
+	  						<div class="desc">
+	  							<p class="name">{{item.name}}</p>
+	  							<p class="sellnum">月售{{item.sold}}</p>
+	  							<p class="price">￥{{item.discountPrice}}</p>
+	  						</div>
+	  					</li>
+	  				</ul>
+	  			</li>
+	  		</ul>
+	  	</div>
+	  </div>
+	  <food></food>
   </div>
+
 </template>
 <script type="text-ecmascript-6">
 	import BScroll from 'better-scroll'
+	import food from '../food/food'
 	const ERR_NO = 0
 
 	export default {
@@ -35,7 +40,8 @@
 			return {
 				goods: [],
 				listHeight: [],
-				scrollY: 0
+				scrollY: 0,
+				selectFood: {}
 			}
 		},
 		created () {
@@ -76,6 +82,14 @@
 				this.foodScroll.scrollToElement(el, 1000)
 				console.log(index)
 			},
+			selectFood (food, event) {
+				console.log(123)
+				if (!event._constructed) {
+					return
+				}
+				this.selectFood = food
+				this.$refs.food.show()
+			},
 			_initScroll () {
 				this.menuScroll = new BScroll(this.$refs.dLeft, {
 					click: true
@@ -97,6 +111,9 @@
 					this.listHeight.push(height)
 				}
 			}
+		},
+		components: {
+			food
 		}
 	}
 </script>

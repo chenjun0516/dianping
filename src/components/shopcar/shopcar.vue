@@ -24,8 +24,8 @@
         default () {
           return [
           {
-            price: 15,
-            count: 20
+            price: 2,
+            count: 2
           }
           ]
         }
