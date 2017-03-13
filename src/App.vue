@@ -17,7 +17,7 @@
       </div>
     </div>
     <router-view></router-view>
-    <shopcar></shopcar>
+    <shopcar :shop-info="shopInfo"></shopcar>
   </div>
 </template>
 
