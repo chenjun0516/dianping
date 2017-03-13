@@ -25,7 +25,7 @@
           return [
           {
             price: 2,
-            count: 2
+            count: 5
           }
           ]
         }
