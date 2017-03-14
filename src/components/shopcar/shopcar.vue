@@ -5,7 +5,7 @@
           <div class="logo">
             <i class="icon-shopping_cart"></i>
           </div>
-          <div class="count" v-show="totalCount>0">{{totalCount}}</div>
+          <div class="count" v-show="totalCount>0">{{oTotalCount}}</div>
         </div>
         <div class="price">￥{{ totalPrice }}</div>  
         <div class="discorvery">{{isDelivery}}</div>
@@ -24,8 +24,8 @@
         default () {
           return [
           {
-            price: 2,
-            count: 5
+            price: 20,
+            count: 55
           }
           ]
         }
@@ -38,6 +38,13 @@
           count += food.count
         })
         return count
+      },
+      oTotalCount () {
+        if (this.totalCount > 99) {
+          return `99+`
+        } else {
+          return this.totalCount
+        }
       },
       totalPrice () {
         let total = 0

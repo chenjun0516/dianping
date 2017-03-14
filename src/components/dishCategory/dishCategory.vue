@@ -11,14 +11,14 @@
 	  			<li v-for="item in goods" class="list-item list-item-hook">
 	  				<h1>{{item.category}}</h1>
 	  				<ul>
-	  					<li @click="selectFood(food, $event)" v-for="item in item.dishList" class="good-list">
-	  						<div class="picbox">
-	  							<img :src="item.littleImg" alt="">
+	  					<li @click="selectFood(food,$event)"  v-for="food in item.dishList" class="good-list">
+	  						<div class="picbox" @click="abc">
+	  							<img :src="food.littleImg" alt="" />
 	  						</div>
 	  						<div class="desc">
-	  							<p class="name">{{item.name}}</p>
-	  							<p class="sellnum">月售{{item.sold}}</p>
-	  							<p class="price">￥{{item.discountPrice}}</p>
+	  							<p class="name">{{food.name}}</p>
+	  							<p class="sellnum">月售{{food.sold}}</p>
+	  							<p class="price">￥{{food.discountPrice}}</p>
 	  						</div>
 	  					</li>
 	  				</ul>
@@ -26,7 +26,7 @@
 	  		</ul>
 	  	</div>
 	  </div>
-	  <food></food>
+	  <food :food="selectedFood" ref="food"></food>
   </div>
 
 </template>
@@ -41,7 +41,7 @@
 				goods: [],
 				listHeight: [],
 				scrollY: 0,
-				selectFood: {}
+				selectedFood: {}
 			}
 		},
 		created () {
@@ -87,14 +87,18 @@
 				if (!event._constructed) {
 					return
 				}
-				this.selectFood = food
+				this.selectedFood = food
 				this.$refs.food.show()
+			},
+			abc () {
+				console.log(123)
 			},
 			_initScroll () {
 				this.menuScroll = new BScroll(this.$refs.dLeft, {
 					click: true
 				})
 				this.foodScroll = new BScroll(this.$refs.dRight, {
+					click: true,
 					probeType: 3
 				})
 				this.foodScroll.on('scroll', (pos) => {
