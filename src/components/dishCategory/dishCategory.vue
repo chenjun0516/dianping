@@ -30,7 +30,7 @@
 	  	</div>
 	  </div>
 	  <food :food="selectedFood" ref="food"></food>
-	  <shopcar :select-food="selectedFood" :min-delivery="shopInfo.deliveryFee" :min-fee="shopInfo.minFee"></shopcar>
+	  <shopcar :select-foods="selectFoods" :min-delivery="shopInfo.deliveryFee" :min-fee="shopInfo.minFee"></shopcar>
 
   </div>
 
@@ -80,6 +80,17 @@
 					}
 				}
 				return 0
+			},
+			selectFoods () {
+				let foods = []
+				this.goods.forEach((good) => {
+					good.dishList.forEach((food) => {
+						if (food.count) {
+							foods.push(food)
+						}
+					})
+				})
+				return foods
 			}
 		},
 		methods: {

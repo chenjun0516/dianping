@@ -50,7 +50,7 @@
 			left: 0
 			right: 0
 			bottom: 0
-			background: rgba(0,0,0,0.5)
+			background: rgba(0,0,0,0.7)
 			z-index: 999
 		.food-wrapper
 			position: fixed
@@ -58,11 +58,10 @@
 			left: 15%
 			transform: translateY(-50%)
 			// transform: translateX(-50%)
-			bottom: 60px
 			width: 70%
 			background: white
 			border-radius: 10px
-			z-index: 1000
+			z-index: 10000
 			.picBox
 				height: 210px
 				width: 100%

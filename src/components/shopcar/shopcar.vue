@@ -49,16 +49,16 @@
       totalPrice () {
         let total = 0
         this.selectFoods.forEach((food) => {
-          total += food.count * food.price
+          total += food.count * food.discountPrice
         })
         return total
       },
       desc () {
         if (this.totalPrice === 0) {
-          return `￥${this.minDelivery}起送`
+          return `￥${this.minFee}起送`
         } else if (this.totalPrice < this.minFee) {
           let diff = this.minFee - this.totalPrice;
-          return `还差￥${diff}元起送`
+          return `差￥${diff}元起送`
         } else {
           return `去结算`
         }
@@ -87,19 +87,19 @@
     bottom: 0
     left: 0
     width: 100%
-    height: 60px
+    height: 50px
     .content-left
     	flex: 1
     	background: #ccc
      .logo-wrapper
        display: inline-block
        position: relative
-       top: -10px
+       top: -6px
        padding: 6px
        margin: 0 10px
        box-sizing: border-box
-       width: 60px
-       height: 60px
+       width: 50px
+       height: 50px
        background: black
        border-radius: 50%
        .logo      
@@ -131,20 +131,21 @@
      .price
        display: inline-block
        vertical-align: top
-       line-height: 30px
-       margin: 15px 0
+       line-height: 20px
+       margin: 15px 10px 0 0
+       font-size: 14px
        font-weight: 600
      .discorvery
        display: inline-block
        vertical-align: top
-       line-height: 30px
-       margin: 15px
+       line-height: 50px
+       font-size: 12px
     .content-right
     	flex: 0 0 100px
      width: 100px 
      .pay
-        height: 60px
-        line-height: 60px
+        height: 50px
+        line-height: 50px
         text-align: center 
         font-size: 14px
         font-weight: 600
