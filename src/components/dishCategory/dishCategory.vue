@@ -12,13 +12,16 @@
 	  				<h1>{{item.category}}</h1>
 	  				<ul>
 	  					<li @click="selectFood(food,$event)"  v-for="food in item.dishList" class="good-list">
-	  						<div class="picbox" @click="abc">
+	  						<div class="picbox">
 	  							<img :src="food.littleImg" alt="" />
 	  						</div>
 	  						<div class="desc">
 	  							<p class="name">{{food.name}}</p>
 	  							<p class="sellnum">月售{{food.sold}}</p>
 	  							<p class="price">￥{{food.discountPrice}}</p>
+	  						</div>
+	  						<div class="cartControl-wrapper">
+								<cartControl :food="food"></cartControl>	
 	  						</div>
 	  					</li>
 	  				</ul>
@@ -27,15 +30,24 @@
 	  	</div>
 	  </div>
 	  <food :food="selectedFood" ref="food"></food>
+	  <shopcar :select-food="selectedFood" :min-delivery="shopInfo.deliveryFee" :min-fee="shopInfo.minFee"></shopcar>
+
   </div>
 
 </template>
 <script type="text-ecmascript-6">
 	import BScroll from 'better-scroll'
 	import food from '../food/food'
+	import cartControl from '../cartControl/cartControl'
+	import shopcar from '../shopcar/shopcar'
 	const ERR_NO = 0
 
 	export default {
+		props: {
+			shopInfo: {
+				type: Object
+			}
+		},
 		data () {
 			return {
 				goods: [],
@@ -83,15 +95,11 @@
 				console.log(index)
 			},
 			selectFood (food, event) {
-				console.log(123)
 				if (!event._constructed) {
 					return
 				}
 				this.selectedFood = food
 				this.$refs.food.show()
-			},
-			abc () {
-				console.log(123)
 			},
 			_initScroll () {
 				this.menuScroll = new BScroll(this.$refs.dLeft, {
@@ -117,7 +125,9 @@
 			}
 		},
 		components: {
-			food
+			food,
+			cartControl,
+			shopcar
 		}
 	}
 </script>
@@ -154,6 +164,7 @@
 					background: #ddd
 				.good-list
 					display: flex
+					position: relative
 					padding: 14px
 					.picbox
 						flex: 0 0 60px
@@ -173,6 +184,10 @@
 								font-size: 14px
 								font-weight: 600
 								color: red
+					.cartControl-wrapper
+						position: absolute
+						bottom: 8px
+						right: 14px
 							
 					
 </style>

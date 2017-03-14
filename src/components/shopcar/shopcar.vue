@@ -2,12 +2,12 @@
   <div class="shopcar">
   		<div class="content-left">
         <div class="logo-wrapper">
-          <div class="logo">
-            <i class="icon-shopping_cart"></i>
+          <div class="logo" :class="{'selected':totalCount>0}">
+            <i class="icon-shopping_cart" :class="{'highLight':totalCount>0}"></i>
           </div>
           <div class="count" v-show="totalCount>0">{{oTotalCount}}</div>
         </div>
-        <div class="price">￥{{ totalPrice }}</div>  
+        <div class="price" v-show="totalPrice>0">￥{{ totalPrice }}</div>  
         <div class="discorvery">{{isDelivery}}</div>
       </div>
   		<div class="content-right">
@@ -18,17 +18,17 @@
 <script type="text-ecmascript-6">
   export default {
     props: {
-      shopInfo: {},
       selectFoods: {
         type: Array,
         default () {
-          return [
-          {
-            price: 20,
-            count: 55
-          }
-          ]
+          return []
         }
+      },
+      minFee: {
+        type: Number
+      },
+      minDelivery: {
+        type: Number
       }
     },
     computed: {
@@ -55,16 +55,16 @@
       },
       desc () {
         if (this.totalPrice === 0) {
-          return `￥${this.shopInfo.minFee}起送`
-        } else if (this.totalPrice < this.shopInfo.minFee) {
-          let diff = this.shopInfo.minFee - this.totalPrice;
+          return `￥${this.minDelivery}起送`
+        } else if (this.totalPrice < this.minFee) {
+          let diff = this.minFee - this.totalPrice;
           return `还差￥${diff}元起送`
         } else {
           return `去结算`
         }
       },
       payClass () {
-        if (this.totalPrice < this.shopInfo.minFee) {
+        if (this.totalPrice < this.minFee) {
           return 'not-enough'
         } else {
           return 'enough'
@@ -72,7 +72,7 @@
       },
       isDelivery () {
         if (this.totalPrice < 50) {
-          return `另需配送费￥${this.shopInfo.deliveryFee}`
+          return `另需配送费￥${this.minDelivery}`
         } else {
           return `免配送费`
         }
@@ -106,23 +106,28 @@
          width: 100%
          height: 100%
          text-align: center
-         background: red
+         background: #eee
          border-radius: 50%
+         &.selected
+           background: orange
+         .icon-shopping_cart
+           line-height: 48px
+           height: 54px
+           font-size: 28px
+           color: grey
+           &.highLight
+             color: black
        .count
          position: absolute
          top: 0 
          right: 0
          padding: 0 6px
          line-height: 18px
-         min-width: 20px
+         min-width: 15px
          height: 18px
          text-align: center
-         background: yellow
+         background: red
          border-radius: 12px
-         .icon-shopping_cart
-           line-height: 54px
-           height: 54px
-           font-size: 24px
      .price
        display: inline-block
        vertical-align: top

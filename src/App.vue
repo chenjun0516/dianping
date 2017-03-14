@@ -16,14 +16,14 @@
         <router-link to="/shopInfo">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
-    <shopcar :shop-info="shopInfo"></shopcar>
+    <router-view :shop-info="shopInfo"></router-view>
+    
   </div>
 </template>
 
 <script type="text-ecmascript-6">
   import header from './components/header/header'
-  import shopcar from './components/shopcar/shopcar'
+  
 
   const ERR_NO = 0
   export default {
@@ -43,8 +43,7 @@
      })
     },
     components: {
-      'v-header': header,
-      shopcar
+      'v-header': header
     }
   }
 </script>

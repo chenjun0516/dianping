@@ -6,12 +6,17 @@
 			</div>
 			<div class="desc">
 				<div class="title">{{food.name}}</div>
-				<div class="price">￥<span>{{food.discountPrice}}</span></div>
+				<div class="price">￥{{food.discountPrice}}</div>
+				<div class="cartControl-wrapper">
+					<cartControl :food="food"></cartControl>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
-<script type="text-ecmascript-6">
+<script type="text/ecmascript-6">
+	import cartControl from '../cartControl/cartControl'
+
 	export default {
 		props: {
 			food: {
@@ -30,6 +35,9 @@
 			hide () {
 				this.showFlag = false
 			}
+		},
+		components: {
+			cartControl
 		}
 	}
 </script>
@@ -65,10 +73,15 @@
 			.desc
 				position: relative
 				padding: 10px 18px
-				span
+				.price
 					display: inline-block
 					padding: 5px 0
 					font-weight: 600
 					color: #f63
 					font-size: 20px
+				.cartControl-wrapper
+					position: absolute
+					right: 12px
+					bottom: 9px
+					z-index: 9999999
 </style>
