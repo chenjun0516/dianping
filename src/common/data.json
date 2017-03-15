@@ -8,6 +8,7 @@
       "minFee": 20.0,
       "onlinePay": 1,
       "shopName": "赵家小吃",
+      "defaultPic":"http://xs01.meituan.net/waimai_i/img/friend/userpic_defalut.c741e924.png",
       "shopPic": "https://p1.meituan.net/xianfu/cfdc68281d109c0fd1c83fc8858f1e88380075.jpg@150w_150h_1e_1c",
       "tip": "（赵家小吃）在大华地区武威东路312号经营本地农家菜已经10年。",
       "licencePics": [
@@ -1313,8 +1314,10 @@
       "dpCommentNum": 0,
       "end": false,
       "integratedScore": 4.7,
+      "defaultPic":"http://xs01.meituan.net/waimai_i/img/friend/userpic_defalut.c741e924.png",
       "list": [
         {
+          "defaultPic":"http://xs01.meituan.net/waimai_i/img/friend/userpic_defalut.c741e924.png",
           "commentTime": "2017-02-28",
           "content": "物美价廉！实惠！好吃！",
           "deliveryTime": "15分钟送达",
@@ -1366,6 +1369,7 @@
           "score": 5,
           "shopReply": null,
           "userName": "pXK54999218",
+          "defaultPic":"http://xs01.meituan.net/waimai_i/img/friend/userpic_defalut.c741e924.png",
           "userPicUrl": ""
         },
         {

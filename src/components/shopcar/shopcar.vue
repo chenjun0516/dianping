@@ -64,8 +64,10 @@
         }
       },
       payClass () {
-        if (this.totalPrice < this.minFee) {
+        if (this.totalPrice < this.minFee && this.totalPrice > 0) {
           return 'not-enough'
+        } else if (this.totalPrice === 0) {
+          return 'no-buy'
         } else {
           return 'enough'
         }
@@ -151,7 +153,9 @@
         font-weight: 600
         background: green
         &.not-enough
-          background: green
+          background: orange
         &.enough
           background: yellowgreen
+        &.no-buy
+          background: #333
 </style>
